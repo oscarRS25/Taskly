@@ -1,247 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-    <title>Taskly - Gestionar Actividad</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!-- HEADER -->
-    <header class="bg-dark text-white py-3 fixed-top">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand text-warning" href="index.html">
-              <img src="img/logo.png" class="logo-img" alt="Logo" /> Taskly
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="index.html">INICIO</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="acerca.html">ACERCA DE</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-warning" href="actividades.html">ACTIVIDADES</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="configuracion.html">CONFIGURACIÓN</a>
-                </li>
-              </ul>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+  <title>Taskly - Gestionar Actividad</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="bg-dark text-white py-3 fixed-top">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-warning" href="index.html">
+            <img src="img/logo.png" class="logo-img" alt="Logo" /> Taskly
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="index.html">INICIO</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="acerca.html">ACERCA DE</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-warning" href="actividades.html">ACTIVIDADES</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="configuracion.html">CONFIGURACIÓN</a>
+              </li>
+            </ul>
           </div>
-        </nav>
-      </div>
-    </header>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Título de la página -->
-    <section class="container mt-5 pt-5">
-      <h1 class="display-4 text-center">Gestionar Actividad</h1>
-      <p class="lead text-center">Añade, visualiza o edita una actividad.</p>
-    </section>
+  <!-- Título de la página -->
+  <section class="container mt-5 pt-5">
+    <h1 class="display-4 text-center">Gestionar Actividad</h1>
+    <p class="lead text-center">Añade, visualiza o edita una actividad.</p>
+  </section>
 
-    <!-- Formulario de Actividad -->
-    <section class="container mt-4">
-      <div class="card shadow-lg border-0 rounded">
-        <div class="card-body">
+  <!-- Formulario de Actividad -->
+  <section class="container mt-4">
+    <div class="card shadow-lg border-0 rounded">
+      <div class="card-body">
+        <form id="tarea-form" data-type="add" data-id="">
           <div class="row">
+            <!-- Parte de texto -->
             <div class="col-md-8">
-              <form>
-                <!-- Parte de texto -->
-                <div class="mb-3">
-                  <label for="activityName" class="form-label">Nombre de la Actividad</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="activityName"
-                    placeholder="Ingresa el nombre de la actividad"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="activityDescription" class="form-label">Descripción</label>
-                  <textarea
-                    class="form-control"
-                    id="activityDescription"
-                    rows="3"
-                    placeholder="Describe la actividad"
-                  ></textarea>
-                </div>
-                <div class="mb-3">
-                  <label for="activityDate" class="form-label">Fecha</label>
-                  <input type="date" class="form-control" id="activityDate" />
-                </div>
-              </form>
-            </div>
-            <div class="col-md-4 d-flex flex-column align-items-center">
-                <!-- Imagen centrada -->
-                <div class="d-flex justify-content-center mb-3">
-                  <img src="https://www.merionpartners.com/wp-content/uploads/2015/10/400x4005.png" alt="Foto" class="img-fluid">
-                </div>
-                <!-- Botones debajo de la imagen -->
-                <button id="activarCamara" class="btn btn-info mb-2">Activar Cámara</button>
-                <button id="tomarFoto" class="btn btn-success">Tomar Foto</button>
+              <div class="mb-3">
+                <label for="titulo" class="form-label"><strong>Nombre de la Actividad</strong></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="titulo"
+                  name="titulo"
+                  placeholder="Ingresa el nombre de la actividad"
+                  required
+                />
               </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
+                <textarea
+                  class="form-control"
+                  id="descripcion"
+                  name="descripcion"
+                  rows="3"
+                  required
+                  placeholder="Describe la actividad"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="fecha" class="form-label"><strong>Fecha</strong></label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fecha"
+                  name="fecha"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Parte de la cámara -->
+            <div class="col-md-4 d-flex flex-column align-items-center">
+              <h6>Añade una Fotografía del Creador</h6>
+              <div class="d-flex justify-content-center mb-3">
+                <video id="player" autoplay></video>
+                <div id="fotoContenedor"></div>
+              </div>
+              <button id="activarCamara" class="btn btn-info mb-2">Activar Cámara</button>
+              <button id="tomarFoto" class="btn btn-success mb-2" style="display: none;">Tomar Foto</button>
+              <button id="rehacerFoto" class="btn btn-warning mb-2" style="display: none;">Rehacer Foto</button>
+            </div>
           </div>
 
-          <!-- Botones centrados -->
+          <!-- Botones de guardar y cancelar -->
           <div class="d-flex justify-content-center mt-4">
-            <button type="button" class="btn btn-success" id="saveChangesBtn">
-              Guardar
-            </button>
-            <button type="button" class="btn btn-danger ms-3" id="cancelBtn">
-              Cancelar
-            </button>
+            <button type="submit" class="btn btn-success" id="saveChangesBtn">Guardar</button>
+            <button type="button" class="btn btn-danger ms-3" id="cancelBtn">Cancelar</button>
           </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabla de Actividades -->
+  <section class="container mt-3">
+    <table class="table custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Las filas dinámicas se insertarán aquí -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white py-3 mt-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <p><strong class="text-warning">CONTACTO:</strong></p>
+        </div>
+        <div class="col-md-4 text-center">
+          <p><strong class="text-warning">Oscar Adahir Rojas Sánchez</strong><br /><i class="fas fa-phone-alt"></i> +52 418 152 4505<br /><i class="fas fa-envelope"></i> rojassanchezo63@gmail.com</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <p><strong class="text-warning">Miguel Ángel Hernández Solís</strong><br /><i class="fas fa-phone-alt"></i> +52 418 144 6580<br /><i class="fas fa-envelope"></i> miguehdzss29@gmail.com</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <p><strong class="text-warning">Saúl Guadalupe Marín Reyes</strong><br /><i class="fas fa-phone-alt"></i> +52 415 103 2661<br /><i class="fas fa-envelope"></i> marinreyessaulguadalupe2000@gmail.com</p>
+        </div>
+        <div class="col-12 text-center">
+          <p class="text-warning"><strong>&copy; 2024 Taskly - Todos los derechos reservados</strong></p>
         </div>
       </div>
-    </section>
+    </div>
+  </footer>
 
-    <!-- Tabla de Actividades -->
-    <section class="container mt-3">
-      <table class="table custom-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Revisión de Proyecto</td>
-            <td>Revisar las entregas del proyecto Taskly</td>
-            <td>2024-12-15</td>
-            <td>
-              <button
-                class="btn btn-warning btn-action"
-                data-bs-toggle="tooltip"
-                title="Ver"
-              >
-                <i class="fas fa-eye"></i>
-              </button>
-              <button
-                class="btn btn-success btn-action"
-                data-bs-toggle="tooltip"
-                title="Actualizar"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="btn btn-danger btn-action"
-                data-bs-toggle="tooltip"
-                title="Eliminar"
-              >
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Reunión con el equipo</td>
-            <td>Planificación de nuevas funciones</td>
-            <td>2024-12-16</td>
-            <td>
-              <button
-                class="btn btn-warning btn-action"
-                data-bs-toggle="tooltip"
-                title="Ver"
-              >
-                <i class="fas fa-eye"></i>
-              </button>
-              <button
-                class="btn btn-success btn-action"
-                data-bs-toggle="tooltip"
-                title="Actualizar"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="btn btn-danger btn-action"
-                data-bs-toggle="tooltip"
-                title="Eliminar"
-              >
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white py-3 mt-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <p><strong class="text-warning">CONTACTO:</strong></p>
-          </div>
-          <div class="col-md-4 text-center">
-            <p>
-              <strong class="text-warning">Oscar Adahir Rojas Sánchez</strong
-              ><br />
-              <i class="fas fa-phone-alt"></i> +52 418 152 4505<br />
-              <i class="fas fa-envelope"></i> rojassanchezo63@gmail.com
-            </p>
-          </div>
-          <div class="col-md-4 text-center">
-            <p>
-              <strong class="text-warning">Miguel Ángel Hernández Solís</strong
-              ><br />
-              <i class="fas fa-phone-alt"></i> +52 418 144 6580<br />
-              <i class="fas fa-envelope"></i> miguehdzss29@gmail.com
-            </p>
-          </div>
-          <div class="col-md-4 text-center">
-            <p>
-              <strong class="text-warning">Saúl Guadalupe Marín Reyes</strong
-              ><br />
-              <i class="fas fa-phone-alt"></i> +52 415 103 2661<br />
-              <i class="fas fa-envelope"></i>
-              marinreyessaulguadalupe2000@gmail.com
-            </p>
-          </div>
-          <div class="col-12 text-center">
-            <p class="text-warning">
-              <strong
-                >&copy; 2024 Taskly - Todos los derechos reservados</strong
-              >
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <script src="js/app.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>
 </html>
