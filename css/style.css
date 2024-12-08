@@ -1,0 +1,135 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Header */
+  header .nav-link {
+    transition: color 0.3s ease-in-out;
+  }
+  
+  header .nav-link:hover {
+    color: #ffa500;
+  }
+  
+  /* Ajusta el tamaño del logo */
+  .logo-img {
+    width: 35px; /* Ajusta el valor según el tamaño que prefieras */
+    height: auto;
+  }
+  
+  /* Hero Section */
+  .hero {
+    position: relative;
+  }
+  
+  .hero .overlay {
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .info{
+    height: 360px;
+  }
+
+  /* Animación de Hover */
+  .card-informative:hover {
+    transform: translateY(-10px);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .card img {
+    width: auto;
+    height: 200px;
+    object-fit: contain; 
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    margin-bottom: 30px;
+  }
+  
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: #4caf50;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  /* Gestión de actividades */
+  .custom-table {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+  }
+
+  .custom-table thead th {
+    background-color: #343a40;
+    color: white;
+    border: none;
+  }
+
+  .custom-table tbody tr {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .custom-table tbody td {
+    vertical-align: middle;
+  }
+
+  .btn-action {
+    border: none;
+    outline: none;
+    margin: 0 5px;
+  }
+
+  .btn-action i {
+    font-size: 1.2rem;
+  }

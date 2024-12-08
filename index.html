@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Taskly</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="bg-dark text-white py-3 fixed-top">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand text-warning" href="index.html">
+              <img src="img/logo.png" class="logo-img" alt="Logo" /> Taskly
+            </a>
+
+            <!-- Botón para mostrar el menú en móviles -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="#">INICIO</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="acerca.html">ACERCA DE</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="actividades.html">ACTIVIDADES</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="configuracion.html">CONFIGURACIÓN</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="hero text-center text-white d-flex align-items-center justify-content-center"
+      style="height: calc(90vh - 70px); background-image: url('img/hero.jpg'); background-size: cover; background-position: center;"
+    >
+      <div class="container position-relative" style="z-index: 2">
+        <h1 class="display-4 fw-bold">
+          Organiza tus <span class="text-warning">Tareas</span>
+        </h1>
+        <p class="lead my-4">
+          Un lugar donde puedes planificar, gestionar y cumplir todas tus metas
+          diarias.
+        </p>
+        <a href="actividades.html" class="btn btn-warning btn-lg">Comenzar Ahora</a>
+      </div>
+      <!-- Overlay -->
+      <div
+        class="overlay position-absolute top-0 start-0 w-100 h-100"
+        style="background-color: rgba(0, 0, 0, 0.6)"
+      ></div>
+    </section>
+
+    <!-- Beneficios de Gestionar Actividades -->
+    <section class="container mt-5">
+      <h2 class="section-title display-4 text-center text-warning">Beneficios de Gestionar Actividades</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/productividad.png" class="card-img-top" alt="Productividad">
+            <div class="card-body">
+              <h5 class="card-title">Mejora tu Productividad</h5>
+              <p class="card-text">
+                Gestionar tus tareas te permite centrarte en lo que realmente importa y trabajar de forma
+                más eficiente.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/organizacion.png" class="card-img-top" alt="Organización">
+            <div class="card-body">
+              <h5 class="card-title">Mejor Organización</h5>
+              <p class="card-text">
+                Mantén todas tus tareas organizadas en un solo lugar, sin olvidar nada importante.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/reduccion-de-estres.png" class="card-img-top" alt="Reducción del Estrés">
+            <div class="card-body">
+              <h5 class="card-title">Reducción del Estrés</h5>
+              <p class="card-text">
+                Al tener claro lo que tienes que hacer, se reduce el estrés de no saber por dónde empezar.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beneficios de Usar Taskly -->
+    <section class="container mt-5">
+      <h2 class="section-title display-4 text-center text-warning">Beneficios de Usar Taskly</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/accesibilidad.png" class="card-img-top" alt="Acceso desde cualquier lugar">
+            <div class="card-body">
+              <h5 class="card-title">Acceso desde cualquier lugar</h5>
+              <p class="card-text">
+                Puedes acceder a Taskly desde cualquier dispositivo y lugar, sin necesidad de estar conectado a la red todo el tiempo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/notificacion.png" class="card-img-top" alt="Notificaciones">
+            <div class="card-body">
+              <h5 class="card-title">Notas y Sincronización Automática</h5>
+              <p class="card-text">
+                Agrega notas personalizadas a tus tareas. Una vez conectado a Internet, las notas se actualizarán automáticamente para estar al día en todos tus dispositivos.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-lg border-0 rounded info card-informative">
+            <img src="img/facilidad-uso.png" class="card-img-top" alt="Facilidad de uso" style="height: 200px;">
+            <div class="card-body">
+              <h5 class="card-title">Facilidad de Uso</h5>
+              <p class="card-text">
+                Una interfaz sencilla y fácil de usar para gestionar tus tareas de forma eficiente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 mt-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p><strong class="text-warning">CONTACTO:</strong></p>
+          </div>
+          <div class="col-md-4 text-center">
+            <p>
+              <strong class="text-warning">Oscar Adahir Rojas Sánchez</strong><br />
+              <i class="fas fa-phone-alt"></i> +52 418 152 4505<br />
+              <i class="fas fa-envelope"></i> rojassanchezo63@gmail.com
+            </p>
+          </div>
+          <div class="col-md-4 text-center">
+            <p>
+              <strong class="text-warning">Miguel Ángel Hernández Solís</strong><br />
+              <i class="fas fa-phone-alt"></i> +52 418 144 6580<br />
+              <i class="fas fa-envelope"></i> miguehdzss29@gmail.com
+            </p>
+          </div>
+          <div class="col-md-4 text-center">
+            <p>
+              <strong class="text-warning">Saúl Guadalupe Marín Reyes</strong><br />
+              <i class="fas fa-phone-alt"></i> +52 415 103 2661<br />
+              <i class="fas fa-envelope"></i> marinreyessaulguadalupe2000@gmail.com
+            </p>
+          </div>
+          <div class="col-12 text-center">
+            <p class="text-warning"><strong>&copy; 2024 Taskly - Todos los derechos reservados</strong></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
