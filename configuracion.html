@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
           <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand text-warning" href="index.html">
+            <a class="navbar-brand" href="index.html">
               <img src="img/logo.png" class="logo-img" alt="Logo" /> Taskly
             </a>
 
@@ -70,17 +70,17 @@
     </section>
 
     <!-- Contenido de configuración -->
-    <section class="container">
+    <section class="container mt-5">
       <div class="row">
         <!-- Notificaciones Push -->
-        <div class="col-md-12 mb-12 mt-4">
+        <div class="col-md-12 mb-12">
           <div class="card shadow-lg border-0 rounded">
             <div class="card-body text-center">
               <h5 class="card-title">Notificaciones Push</h5>
               <p class="card-text">Recibe notificaciones sobre tus tareas a tiempo.</p>
               <!-- Toggle switch -->
               <label class="switch">
-                <input type="checkbox" id="push-notifications-toggle" disabled>
+                <input type="checkbox" id="push-notifications-toggle">
                 <span class="slider round"></span>
               </label>
             </div>
@@ -90,7 +90,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white py-3 mt-3">
+    <footer class="bg-dark text-white py-5 mt-5">
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
@@ -123,11 +123,61 @@
         </div>
       </div>
     </footer>
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      const pushNotificationsToggle = document.getElementById('push-notifications-toggle');
+    
+      // Cargar el estado inicial del toggle desde localStorage
+      document.addEventListener("DOMContentLoaded", () => {
+        const estadoNotificaciones = localStorage.getItem("notificacionesPush");
+        if (estadoNotificaciones === "habilitadas") {
+          pushNotificationsToggle.checked = true;
+        } else {
+          pushNotificationsToggle.checked = false;
+        }
+      });
+    
+      // Evento para habilitar o deshabilitar notificaciones
+      pushNotificationsToggle.addEventListener('change', async function () {
+        if (this.checked) {
+          if (Notification.permission === "default") {
+            const permiso = await Notification.requestPermission();
+            if (permiso === "granted") {
+              mostrarNotificacion("Notificaciones habilitadas.", "Ahora recibirás notificaciones de tus tareas.");
+              localStorage.setItem("notificacionesPush", "habilitadas");
+            } else {
+              this.checked = false;
+              alert("No se otorgaron permisos para las notificaciones.");
+            }
+          } else if (Notification.permission === "granted") {
+            mostrarNotificacion("Notificaciones habilitadas.", "Ahora recibirás notificaciones de tus tareas.");
+            localStorage.setItem("notificacionesPush", "habilitadas");
+          } else {
+            alert("No se otorgaron permisos para las notificaciones.");
+            this.checked = false;
+          }
+        } else {
+          mostrarNotificacion("Notificaciones deshabilitadas.", "Ya no recibirás notificaciones de tus tareas.");
+          localStorage.setItem("notificacionesPush", "deshabilitadas");
+        }
+      });
+    
+      // Función para mostrar una notificación
+      function mostrarNotificacion(titulo, mensaje) {
+        if (Notification.permission === "granted") {
+          new Notification(titulo, {
+            body: mensaje,
+            icon: "img/logo.png",
+          });
+        }
+      }
+    </script>
+    
   </body>
 </html>
