@@ -19,7 +19,7 @@ class Camara {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: { width: 300, height: 300 }
+        video: { width: 300, height: 300 },
       })
         .then((stream) => {
           this.videoNode.srcObject = stream;
@@ -105,18 +105,42 @@ const cancelBtn = document.getElementById("cancelBtn");
 const tableBody = document.querySelector(".custom-table tbody");
 let tareas = [];
 
-// Generar un nuevo ID para la tarea
-const generarId = () => {
-  const ultimaTarea = tareas[tareas.length - 1];
-  return ultimaTarea ? ultimaTarea.id + 1 : 1;
-};
+// Asegurar conexión a IndexedDB
+async function initDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("tasklyDB", 1);
+
+    request.onsuccess = (evento) => {
+      console.log("Base de datos lista!");
+      resolve(evento.target.result);
+    };
+
+    request.onupgradeneeded = (evento) => {
+      console.log("Base de datos actualizada!");
+      const db = evento.target.result;
+      if (!db.objectStoreNames.contains("almacen-tareas")) {
+        db.createObjectStore("almacen-tareas", { keyPath: "id", autoIncrement: true });
+      }
+    };
+
+    request.onerror = (error) => {
+      console.error("Error al abrir la base de datos:", error);
+      reject(error);
+    };
+  });
+}
 
 // Generar la tabla de tareas
-const generarTabla = () => {
-  listar((datos) => {
-    tareas = datos;
+const generarTabla = async () => {
+  const db = await initDB();
+  const transaccion = db.transaction("almacen-tareas", "readonly");
+  const almacen = transaccion.objectStore("almacen-tareas");
+  const solicitud = almacen.getAll();
+
+  solicitud.onsuccess = () => {
+    tareas = solicitud.result;
     tableBody.innerHTML = "";
-    datos.forEach((tarea) => {
+    tareas.forEach((tarea) => {
       const row = document.createElement("tr");
 
       row.innerHTML = `
@@ -137,11 +161,20 @@ const generarTabla = () => {
     activarCamaraBtn.style.display = "inline-block";
     rehacerFotoBtn.style.display = "none";
     fotoCapturada = null; // Reiniciar la foto
-  });
+  };
+};
+
+// Generar un nuevo ID para la tarea
+const generarId = () => {
+  if (tareas.length > 0) {
+    const ultimaTarea = tareas[tareas.length - 1];
+    return ultimaTarea.id + 1;
+  }
+  return 1; // Si no hay tareas, empieza en 1
 };
 
 // Guardar o actualizar tareas
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
   const tarea = Object.fromEntries(formData.entries());
@@ -153,27 +186,36 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
+  const db = await initDB();
+  const transaccion = db.transaction("almacen-tareas", "readwrite");
+  const almacen = transaccion.objectStore("almacen-tareas");
+
   if (tipoFormulario === "add") {
     tarea.id = generarId();
-    guardar(tarea, generarTabla);
+    almacen.add(tarea);
   } else {
     tarea.id = parseInt(form.dataset.id, 10);
-    actualizar(tarea, generarTabla);
-    fotoContenedor.style.display = "none";
-    fotoContenedor.innerHTML = "";
-    fotoCapturada = null;
-    videoNode.style.display = "none";
-    activarCamaraBtn.style.display = "inline-block";
-    tomarFotoBtn.style.display = "none";
-    rehacerFotoBtn.style.display = "none";
+    almacen.put(tarea);
   }
+
+  transaccion.oncomplete = generarTabla;
   camara.apagar();
+  fotoContenedor.style.display = "none";
+  activarCamaraBtn.style.display = "inline-block";
+  rehacerFotoBtn.style.display = "none";
+  tomarFotoBtn.style.display = "none";
+  videoNode.style.display = "none";
 });
 
-
 // Editar una tarea
-const editarTarea = (id) => {
-  listarPorId(id, (tarea) => {
+const editarTarea = async (id) => {
+  const db = await initDB();
+  const transaccion = db.transaction("almacen-tareas", "readonly");
+  const almacen = transaccion.objectStore("almacen-tareas");
+  const solicitud = almacen.get(id);
+
+  solicitud.onsuccess = () => {
+    const tarea = solicitud.result;
     form.dataset.type = "update";
     form.dataset.id = id;
     form.titulo.value = tarea.titulo;
@@ -187,45 +229,29 @@ const editarTarea = (id) => {
     activarCamaraBtn.style.display = "none";
     tomarFotoBtn.style.display = "none";
     rehacerFotoBtn.style.display = "inline-block";
-  });
+  };
 };
 
 // Eliminar una tarea
-const eliminarTarea = (id) => {
-  eliminar(id, generarTabla);
+const eliminarTarea = async (id) => {
+  const db = await initDB();
+  const transaccion = db.transaction("almacen-tareas", "readwrite");
+  const almacen = transaccion.objectStore("almacen-tareas");
+  almacen.delete(id);
+
+  transaccion.oncomplete = generarTabla;
 };
 
 // Botón de cancelar
 cancelBtn.addEventListener("click", () => {
-  // Restablece el formulario
   form.reset();
-  form.dataset.type = "add"; // Cambia el estado a "add"
-  form.dataset.id = ""; // Elimina el ID almacenado
-  form.querySelector("#saveChangesBtn").textContent = "Guardar";
-
-  // Reinicia el contenedor de la foto
-  camara.apagar();
+  form.dataset.type = "add";
+  form.dataset.id = "";
   fotoContenedor.style.display = "none";
-  fotoContenedor.innerHTML = "";
-  videoNode.style.display = "none";
   activarCamaraBtn.style.display = "inline-block";
-  tomarFotoBtn.style.display = "none";
   rehacerFotoBtn.style.display = "none";
   fotoCapturada = null;
 });
 
-// Sincronizar tareas cuando haya conexión
-navigator.serviceWorker.ready.then(registration => {
-  registration.sync.register('sync-tareas')
-    .then(() => {
-      console.log("Sincronización de tareas registrada.");
-    })
-    .catch((error) => {
-      console.error("Error al registrar la sincronización de tareas:", error);
-    });
-});
-
 // Inicializar la base de datos y cargar tareas al inicio
-document.addEventListener("DOMContentLoaded", () => {
-  generarTabla();
-});
+document.addEventListener("DOMContentLoaded", generarTabla);
